@@ -1,13 +1,25 @@
 .nav {
     grid-area: n;
     background-color: #04202c;
+    padding: 20px;
 
 }
-.item{
+
+.item a {
     color: #5b7065;
     font-size: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #000;
 }
-.item:hover{
+
+.item:hover a {
     cursor: pointer;
     color: #c9d1c8;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: #304040;
+    text-decoration: none;
 }
