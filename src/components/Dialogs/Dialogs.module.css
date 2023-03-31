@@ -5,20 +5,24 @@
 }
 
 .dialogsItems {
-
+  margin-right: 75px;
+}
+.dialog a{
     font-weight: bold;
     color: #304040;
+    text-decoration: none;
+    font-size: 15px;
 }
-.dialog {
-
-}
-.dialog:hover{
+.dialog:hover a{
     cursor: pointer;
     color: #5b7065;
+    text-decoration: none;
 }
-.dialogs .active{
+.dialog a.active{
     color: #04202c;
+    text-decoration: none;
 }
+
 .messages {
 
 }
