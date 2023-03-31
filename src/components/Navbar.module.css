@@ -1,0 +1,13 @@
+.nav {
+    grid-area: n;
+    background-color: #04202c;
+
+}
+.item{
+    color: #5b7065;
+    font-size: 30px;
+}
+.item:hover{
+    cursor: pointer;
+    color: #c9d1c8;
+}

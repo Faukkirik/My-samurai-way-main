@@ -8,29 +8,12 @@
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
     /*grid-gap: 10px;*/
+    /*background-color: #c9d1c8;*/
 }
 
-.header {
-    grid-area: h;
-    background-color: #304040;
-}
-.header img{
-    margin: 5px;
-    width: 50px;
-}
 
-.nav {
-    grid-area: n;
-    background-color: #04202c;
 
-}
 
-.content {
-    grid-area: c;
-    background-color: #c9d1c8;
-}
-.content img{
-    width: 50%;
-    height: 70%;
-}
+
+
 /*#04202c - forest, #3040404 - old green, #5b7065 - sosna, #c9d1c8 - smoke*/
