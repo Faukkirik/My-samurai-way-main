@@ -2,23 +2,19 @@ import React from "react";
 import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
+import {ArrayMessagePage, StatePropsType} from "../../Redux/state";
 
 
 
 
-type AsdaAPrasdops = {
-    dialogsData: Array<{id: string, name: string}>
-    messageData: Array<{id: string, message: string}>
-}
 
 
-
-export const Dialogs = (props: AsdaAPrasdops) => {
+export const Dialogs = (props: ArrayMessagePage) => {
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {props.dialogsData.map((el) => {
+                {props.dialogs.map((el) => {
                     return (
                         <DialogItem
                             id={el.id}
@@ -28,7 +24,7 @@ export const Dialogs = (props: AsdaAPrasdops) => {
                 })}
             </div>
             <div className={s.messages}>
-                {props.messageData.map((el) => {
+                {props.message.map((el) => {
                     return (
                         <Message
                             id={el.id}

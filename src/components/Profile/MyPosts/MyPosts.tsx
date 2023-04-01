@@ -1,11 +1,10 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
+import {ArrayProfilePage} from "../../../Redux/state";
 
-type AsdaAProps = {
-    postData: Array<{id: string, message: string, likeCount: number}>
-}
-export const MyPosts = (props: AsdaAProps) => {
+
+export const MyPosts = (props: ArrayProfilePage) => {
 
     return (
         <div className={s.postBlock}>
@@ -19,9 +18,9 @@ export const MyPosts = (props: AsdaAProps) => {
                 </div>
             </div>
             <div className={s.posts}>
-                {props.postData.map((el)=>{
+                {props.post.map((el)=>{
                     return(
-                        <Post message={el.message} likeCount={el.likeCount} key={el.id}/>
+                        <Post message={el.message} likeCount={el.likeCount} id={el.id} key={el.id}/>
                     )
                 })}
             </div>
