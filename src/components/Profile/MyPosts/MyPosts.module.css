@@ -1,9 +1,7 @@
-.content img {
-    width: 50%;
-    height: 70%;
-}
 
-.item {
-    color: #04202c;
-    font-size: 18px;
+.postBlock{
+    padding: 10px;
+}
+.posts{
+margin-top: 10px;
 }
