@@ -3,7 +3,7 @@ import s from './Post.module.css'
 import {PostPropsType} from "../../../../Redux/state";
 
 
-export const Post = (props: PostPropsType) => {
+export const Post: React.FC<PostPropsType> = (props ) => {
     return (
         <div>
             <div className={s.item}>

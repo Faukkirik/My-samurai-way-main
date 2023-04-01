@@ -3,7 +3,7 @@ import React from "react";
 import {MessagePropsType} from "../../../Redux/state";
 
 
-export const Message = (props: MessagePropsType) => {
+export const Message: React.FC<MessagePropsType> = (props) => {
     return (
         <div className={s.message}>{props.message}</div>
     )

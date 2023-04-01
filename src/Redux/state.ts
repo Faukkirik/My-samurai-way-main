@@ -20,7 +20,6 @@ export const state: StatePropsType = {
             {id: "3", message: "How are you?"},
             {id: "4", message: "I'm , Oke"},
         ]
-
     },
     newsPage: {},
     musicPage: {},

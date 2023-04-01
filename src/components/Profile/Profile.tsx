@@ -4,7 +4,7 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ArrayProfilePage, PostPropsType, StatePropsType} from "../../Redux/state";
 
-export const Profile =(props: ArrayProfilePage)=>{
+export const Profile: React.FC<ArrayProfilePage> =(props )=>{
 
     return(
         <div className={s.content}>

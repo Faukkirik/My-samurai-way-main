@@ -5,11 +5,7 @@ import {Message} from "./Message/Message";
 import {ArrayMessagePage, StatePropsType} from "../../Redux/state";
 
 
-
-
-
-
-export const Dialogs = (props: ArrayMessagePage) => {
+export const Dialogs: React.FC<ArrayMessagePage> = (props) => {
 
     return (
         <div className={s.dialogs}>
