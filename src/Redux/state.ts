@@ -4,7 +4,7 @@ export const state: StatePropsType = {
             {id: "1", message: "Hi, how are you?", likeCount: 10},
             {id: "2", message: "It's my first post", likeCount: 12},
             {id: "3", message: "omg", likeCount: 27},
-        ]
+        ],
     },
     messagesPage: {
         dialogs: [
@@ -25,6 +25,12 @@ export const state: StatePropsType = {
     musicPage: {},
     settingsPage: {}
 }
+
+export const addPost =(message: string)=>{
+    const newPost:PostPropsType = {id: new Date().toString(), message:message, likeCount: 0}
+    return {...state, profilePage: state.profilePage.post.push(newPost)}
+}
+
 export type StatePropsTypeApp = {
     state: StatePropsType
 }
@@ -49,6 +55,7 @@ export type MessagePropsType = {
 }
 export type ArrayProfilePage = {
     post: PostPropsType[]
+
 }
 export type PostPropsType = {
     id?: string,

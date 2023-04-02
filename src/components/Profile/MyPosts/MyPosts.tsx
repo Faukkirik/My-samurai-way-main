@@ -1,13 +1,16 @@
 import React, {RefObject} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ArrayProfilePage} from "../../../Redux/state";
-
-
-export const MyPosts: React.FC<ArrayProfilePage> = (props) => {
+import {PostPropsType} from "../../../Redux/state";
+export type ArrayProfilePageState = {
+    post: PostPropsType[]
+    addPost: (message: string) => void
+}
+export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
     const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
     const addPost = () => {
-        const text = newPostElement.current?.value
+        const text = newPostElement.current ? newPostElement.current.value : ''
+        props.addPost(text)
     }
     return (
         <div className={s.postBlock}>

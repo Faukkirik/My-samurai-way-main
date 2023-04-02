@@ -8,10 +8,13 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StatePropsTypeApp} from "./Redux/state";
+import {addPost, StatePropsType, StatePropsTypeApp} from "./Redux/state";
 
-
-function App(props: StatePropsTypeApp) {
+export type StatePropsTypeAppSt = {
+    state: StatePropsType
+    addPost: (message: string) => void
+}
+export const App:React.FC<StatePropsTypeAppSt> =(props)=> {
 
     return (
         <BrowserRouter>
@@ -20,6 +23,7 @@ function App(props: StatePropsTypeApp) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route render={()=><Profile
+                        addPost={props.addPost}
                         post={props.state.profilePage.post}
                     />} path={"/profile"}/>
                     <Route render={()=><Dialogs
@@ -35,4 +39,4 @@ function App(props: StatePropsTypeApp) {
     );
 }
 
-export default App;
+
