@@ -7,10 +7,13 @@ export type ArrayProfilePageState = {
     addPost: (message: string) => void
 }
 export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
-    const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
+    let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
     const addPost = () => {
-        const text = newPostElement.current ? newPostElement.current.value : ''
+        let text = newPostElement.current ? newPostElement.current.value : ''
         props.addPost(text)
+        if (newPostElement.current){
+            newPostElement.current.value = ''
+        }
     }
     return (
         <div className={s.postBlock}>

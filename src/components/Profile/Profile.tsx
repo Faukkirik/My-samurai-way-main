@@ -3,6 +3,7 @@ import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ArrayProfilePage, PostPropsType, StatePropsType} from "../../Redux/state";
+
 export type ArrayProfilePageState = {
     post: PostPropsType[]
     addPost: (message: string) => void
