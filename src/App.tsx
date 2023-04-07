@@ -8,11 +8,12 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {addPost, StatePropsType, StatePropsTypeApp} from "./Redux/state";
+import {addPost, StatePropsType, StatePropsTypeApp, updateNewPostText} from "./Redux/state";
 
 export type StatePropsTypeAppSt = {
     state: StatePropsType
-    addPost: (message: string) => void
+    addPost: () => void
+    updateNewPostText:(newText: string)=> void
 }
 export const App:React.FC<StatePropsTypeAppSt> =(props)=> {
 
@@ -25,6 +26,8 @@ export const App:React.FC<StatePropsTypeAppSt> =(props)=> {
                     <Route render={()=><Profile
                         addPost={props.addPost}
                         post={props.state.profilePage.post}
+                        newText={props.state.profilePage.newPostText}
+                        updateNewPostText={props.updateNewPostText}
                     />} path={"/profile"}/>
                     <Route render={()=><Dialogs
                         dialogs={props.state.messagesPage.dialogs}

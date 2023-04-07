@@ -1,26 +1,32 @@
 import React, {RefObject} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PostPropsType} from "../../../Redux/state";
+import {PostPropsType, updateNewPostText} from "../../../Redux/state";
 export type ArrayProfilePageState = {
     post: PostPropsType[]
-    addPost: (message: string) => void
+    addPost: () => void
+    newPostText: string
+    updateNewPostText:(newText:string)=>void
 }
 export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
     const addPost = () => {
-        let text = newPostElement.current ? newPostElement.current.value : ''
-        props.addPost(text)
-        if (newPostElement.current){
-            newPostElement.current.value = ''
-        }
+        props.addPost()
+    }
+    const onPostChange =()=>{
+        const text = newPostElement.current ? newPostElement.current.value : ''
+        props.updateNewPostText(text)
     }
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea
+                        ref={newPostElement}
+                        value={props.newPostText}
+                        onChange={onPostChange}
+                    />
                 </div>
                 <div>
                     <button onClick={addPost}>Add post
