@@ -1,4 +1,4 @@
-import React, {RefObject} from "react";
+import React, {ChangeEvent, RefObject} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostPropsType, updateNewPostText} from "../../../Redux/state";
@@ -9,13 +9,11 @@ export type ArrayProfilePageState = {
     updateNewPostText:(newText:string)=>void
 }
 export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
-    let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef();
     const addPost = () => {
         props.addPost()
     }
-    const onPostChange =()=>{
-        const text = newPostElement.current ? newPostElement.current.value : ''
-        props.updateNewPostText(text)
+    const onPostChange =(e:ChangeEvent<HTMLTextAreaElement>)=>{
+        props.updateNewPostText(e.currentTarget.value)
     }
     return (
         <div className={s.postBlock}>
@@ -23,7 +21,6 @@ export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
             <div>
                 <div>
                     <textarea
-                        ref={newPostElement}
                         value={props.newPostText}
                         onChange={onPostChange}
                     />
