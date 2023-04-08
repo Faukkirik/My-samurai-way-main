@@ -1,55 +1,60 @@
-
-
-let rerenderEntireTree = (state: any) =>{
-    console.log('state changed')
-}
-export const state: StatePropsType = {
-    profilePage: {
-        post: [
-            {id: "1", message: "Hi, how are you?", likeCount: 10},
-            {id: "2", message: "It's my first post", likeCount: 12},
-            {id: "3", message: "omg", likeCount: 27},
-        ],
-        newPostText: ''
+export let store: StatePropsTypeApp = {
+    _state: {
+        profilePage: {
+            post: [
+                {id: "1", message: "Hi, how are you?", likeCount: 10},
+                {id: "2", message: "It's my first post", likeCount: 12},
+                {id: "3", message: "omg", likeCount: 27},
+            ],
+            newPostText: ''
+        },
+        messagesPage: {
+            dialogs: [
+                {id: "1", name: 'Dimysh'},
+                {id: "2", name: 'Andrey'},
+                {id: "3", name: 'Sweta'},
+                {id: "4", name: 'Sasha'},
+                {id: "5", name: 'Valera'},
+            ],
+            message: [
+                {id: "1", message: "Hi"},
+                {id: "2", message: "Hi,hi"},
+                {id: "3", message: "How are you?"},
+                {id: "4", message: "I'm , Oke"},
+            ]
+        },
+        newsPage: {},
+        musicPage: {},
+        settingsPage: {}
     },
-    messagesPage: {
-        dialogs: [
-            {id: "1", name: 'Dimysh'},
-            {id: "2", name: 'Andrey'},
-            {id: "3", name: 'Sweta'},
-            {id: "4", name: 'Sasha'},
-            {id: "5", name: 'Valera'},
-        ],
-        message: [
-            {id: "1", message: "Hi"},
-            {id: "2", message: "Hi,hi"},
-            {id: "3", message: "How are you?"},
-            {id: "4", message: "I'm , Oke"},
-        ]
+    _callSubscriber(){
+        console.log('state changed')
     },
-    newsPage: {},
-    musicPage: {},
-    settingsPage: {}
+    addPost(){
+        const newPost = {id: new Date().toString(), message: this._state.profilePage.newPostText, likeCount: 0}
+        this._state.profilePage.post.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    updateNewPostText (newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber()
+    },
+    subscribe (observer){
+        this._callSubscriber = observer
+    },
+    getState(){
+        return this._state
+    }
 }
-
-export const addPost =()=>{
-    const newPost:PostPropsType = {id: new Date().toString(), message: state.profilePage.newPostText, likeCount: 0}
-    state.profilePage.post.push(newPost)
-    state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
-}
-export const updateNewPostText =(newText: string)=>{
-    state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
-    //return {...state, profilePage: state.profilePage.newPostText= newText}
-}
-export const subscribe =(observer: any)=>{
-    rerenderEntireTree = observer
-}
-
-
 export type StatePropsTypeApp = {
-    state: StatePropsType
+    _state: StatePropsType
+    _callSubscriber: ()=>void
+    updateNewPostText: (newText: string)=> void
+    addPost:()=>void
+    subscribe: (observer:()=>void)=>void
+    getState: ()=>StatePropsType
+
 }
 export type StatePropsType = {
     profilePage : ArrayProfilePage
@@ -79,3 +84,6 @@ export type PostPropsType = {
     message: string,
     likeCount: number
 }
+
+// @ts-ignore
+window.store = store
