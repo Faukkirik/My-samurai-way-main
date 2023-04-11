@@ -1,3 +1,5 @@
+import {log} from "util";
+
 export let store: StatePropsTypeApp = {
     _state: {
         profilePage: {
@@ -30,30 +32,43 @@ export let store: StatePropsTypeApp = {
     _callSubscriber(){
         console.log('state changed')
     },
-    addPost(){
-        const newPost = {id: new Date().toString(), message: this._state.profilePage.newPostText, likeCount: 0}
-        this._state.profilePage.post.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updateNewPostText (newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
-    },
+
     subscribe (observer){
         this._callSubscriber = observer
     },
     getState(){
         return this._state
+    },
+
+    _addPost(){
+        const newPost = {id: new Date().toString(), message: this._state.profilePage.newPostText, likeCount: 0}
+        this._state.profilePage.post.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    _updateNewPostText (newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber()
+    },
+
+    dispatch(action: ActionType){
+        if (action.type === 'ADD-POST'){
+            this._addPost()
+        }
+        if (action.type === 'UPDATE-NEW-POST-TEXT'){
+            this._updateNewPostText(action.newText)
+        }
+        else {return console.log('ERROR')}
     }
 }
 export type StatePropsTypeApp = {
     _state: StatePropsType
     _callSubscriber: ()=>void
-    updateNewPostText: (newText: string)=> void
-    addPost:()=>void
+    _updateNewPostText: (newText: string)=> void
+    _addPost:()=>void
     subscribe: (observer:()=>void)=>void
     getState: ()=>StatePropsType
+    dispatch: (action: ActionType) => void
 
 }
 export type StatePropsType = {
@@ -85,5 +100,13 @@ export type PostPropsType = {
     likeCount: number
 }
 
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+export type ActionType = AddPostActionType | UpdateNewPostTextActionType
 // @ts-ignore
 window.store = store

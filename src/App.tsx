@@ -22,10 +22,9 @@ export const App=(props: StatePropsTypeAppSt)=> {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route render={()=><Profile
-                        addPost={props.store.addPost.bind(props.store)}
+                        dispatch={props.store.dispatch.bind(props.store)}
                         post={props.store._state.profilePage.post}
                         newText={props.store._state.profilePage.newPostText}
-                        updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                     />} path={"/profile"}/>
                     <Route render={()=><Dialogs
                         dialogs={props.store._state.messagesPage.dialogs}
