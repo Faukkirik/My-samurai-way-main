@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ActionType, PostPropsType} from "../../../Redux/state";
+import {ActionType, AddPostAC, PostPropsType, UpdateNewPostTextAC} from "../../../Redux/state";
 export type ArrayProfilePageState = {
     post: PostPropsType[]
     newPostText: string
@@ -9,10 +9,10 @@ export type ArrayProfilePageState = {
 }
 export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
     const addPost = () => {
-        props.dispatch({type: 'ADD-POST'}as const)
+        props.dispatch(AddPostAC())
     }
     const onPostChange =(e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value} as const)
+        props.dispatch(UpdateNewPostTextAC(e.currentTarget.value))
     }
     return (
         <div className={s.postBlock}>

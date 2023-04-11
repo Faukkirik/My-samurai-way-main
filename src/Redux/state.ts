@@ -1,6 +1,4 @@
-import {log} from "util";
-
-export let store: StatePropsTypeApp = {
+export const store: StatePropsTypeApp = {
     _state: {
         profilePage: {
             post: [
@@ -60,6 +58,12 @@ export let store: StatePropsTypeApp = {
         }
         else {return console.log('ERROR')}
     }
+}
+export const AddPostAC =():AddPostActionType=>{
+   return {type: 'ADD-POST'}as const
+}
+export const UpdateNewPostTextAC=(text: string):UpdateNewPostTextActionType=>{
+    return {type: 'UPDATE-NEW-POST-TEXT', newText: text}as const
 }
 export type StatePropsTypeApp = {
     _state: StatePropsType
