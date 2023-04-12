@@ -21,7 +21,8 @@ export const store: StatePropsTypeApp = {
                 {id: "2", message: "Hi,hi"},
                 {id: "3", message: "How are you?"},
                 {id: "4", message: "I'm , Oke"},
-            ]
+            ],
+            newMessageText: ''
         },
         newsPage: {},
         musicPage: {},
@@ -48,6 +49,16 @@ export const store: StatePropsTypeApp = {
         this._state.profilePage.newPostText = newText
         this._callSubscriber()
     },
+    _updateNewMessageText (newText: string) {
+        this._state .messagesPage.newMessageText = newText
+        this._callSubscriber()
+    },
+    _addMessage(){
+        const newMessage = {id: new Date().toString(), message: this._state.messagesPage.newMessageText}
+        this._state.messagesPage.message.push(newMessage)
+        this._state.messagesPage.newMessageText = ''
+        this._callSubscriber()
+    },
 
     dispatch(action: ActionType){
         if (action.type === 'ADD-POST'){
@@ -56,20 +67,34 @@ export const store: StatePropsTypeApp = {
         if (action.type === 'UPDATE-NEW-POST-TEXT'){
             this._updateNewPostText(action.newText)
         }
+        if (action.type === 'ADD-MESSAGE'){
+            this._addMessage()
+        }
+        if (action.type === 'UPDATE-NEW-MESSAGE-TEXT'){
+            this._updateNewMessageText (action.newText)
+        }
         else {return console.log('ERROR')}
     }
 }
-export const AddPostAC =():AddPostActionType=>{
+export const AddPostAC =()=>{
    return {type: 'ADD-POST'}as const
 }
-export const UpdateNewPostTextAC=(text: string):UpdateNewPostTextActionType=>{
+export const UpdateNewPostTextAC =(text: string)=>{
     return {type: 'UPDATE-NEW-POST-TEXT', newText: text}as const
+}
+export const AddMessageAC =()=>{
+    return {type: 'ADD-MESSAGE'}as const
+}
+export const UpdateNewMessageTextAC =(text: string)=>{
+    return {type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text}as const
 }
 export type StatePropsTypeApp = {
     _state: StatePropsType
     _callSubscriber: ()=>void
     _updateNewPostText: (newText: string)=> void
     _addPost:()=>void
+    _updateNewMessageText: (newText: string)=>void
+    _addMessage:()=> void
     subscribe: (observer:()=>void)=>void
     getState: ()=>StatePropsType
     dispatch: (action: ActionType) => void
@@ -85,6 +110,7 @@ export type StatePropsType = {
 export type ArrayMessagePage = {
     dialogs: Array<DialogsPropsType>
     message: Array<MessagePropsType>
+    newMessageText: string
 }
 export type DialogsPropsType = {
     id: string,
@@ -104,13 +130,10 @@ export type PostPropsType = {
     likeCount: number
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-export type ActionType = AddPostActionType | UpdateNewPostTextActionType
+export type AddPostActionType = ReturnType<typeof AddPostAC>
+export type UpdateNewPostTextActionType = ReturnType<typeof UpdateNewPostTextAC>
+export type AddMessageActionType = ReturnType<typeof AddMessageAC>
+export type UpdateNewMessageTextActionType = ReturnType<typeof UpdateNewMessageTextAC>
+export type ActionType = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageTextActionType
 // @ts-ignore
 window.store = store
