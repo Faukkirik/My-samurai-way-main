@@ -3,7 +3,6 @@ import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionType, PostPropsType} from "../../Redux/state";
-import actions from "redux-form/lib/actions";
 
 export type ArrayProfilePageState = {
     post: PostPropsType[]

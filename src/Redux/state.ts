@@ -1,3 +1,6 @@
+import {AddPostAC, profileReducer, UpdateNewPostTextAC} from "./profile-reducer";
+import {AddMessageAC, dialogsReducer, UpdateNewMessageTextAC} from "./dialogs-reducer";
+
 export const store: StatePropsTypeApp = {
     _state: {
         profilePage: {
@@ -39,62 +42,17 @@ export const store: StatePropsTypeApp = {
         return this._state
     },
 
-    _addPost(){
-        const newPost = {id: new Date().toString(), message: this._state.profilePage.newPostText, likeCount: 0}
-        this._state.profilePage.post.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    _updateNewPostText (newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
-    },
-    _updateNewMessageText (newText: string) {
-        this._state .messagesPage.newMessageText = newText
-        this._callSubscriber()
-    },
-    _addMessage(){
-        const newMessage = {id: new Date().toString(), message: this._state.messagesPage.newMessageText}
-        this._state.messagesPage.message.push(newMessage)
-        this._state.messagesPage.newMessageText = ''
-        this._callSubscriber()
-    },
-
     dispatch(action: ActionType){
-        if (action.type === 'ADD-POST'){
-            this._addPost()
-        }
-        if (action.type === 'UPDATE-NEW-POST-TEXT'){
-            this._updateNewPostText(action.newText)
-        }
-        if (action.type === 'ADD-MESSAGE'){
-            this._addMessage()
-        }
-        if (action.type === 'UPDATE-NEW-MESSAGE-TEXT'){
-            this._updateNewMessageText (action.newText)
-        }
-        else {return console.log('ERROR')}
+        this._state.profilePage = profileReducer(store._state.profilePage,action)
+        this._state.messagesPage = dialogsReducer(store._state.messagesPage, action)
+        this._callSubscriber()
     }
 }
-export const AddPostAC =()=>{
-   return {type: 'ADD-POST'}as const
-}
-export const UpdateNewPostTextAC =(text: string)=>{
-    return {type: 'UPDATE-NEW-POST-TEXT', newText: text}as const
-}
-export const AddMessageAC =()=>{
-    return {type: 'ADD-MESSAGE'}as const
-}
-export const UpdateNewMessageTextAC =(text: string)=>{
-    return {type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text}as const
-}
+
+
 export type StatePropsTypeApp = {
     _state: StatePropsType
     _callSubscriber: ()=>void
-    _updateNewPostText: (newText: string)=> void
-    _addPost:()=>void
-    _updateNewMessageText: (newText: string)=>void
-    _addMessage:()=> void
     subscribe: (observer:()=>void)=>void
     getState: ()=>StatePropsType
     dispatch: (action: ActionType) => void
