@@ -1,15 +1,9 @@
 import React from "react";
-import {ActionType, ArrayProfilePage} from "../../../Redux/store";
 import {AddPostAC, UpdateNewPostTextAC} from "../../../Redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {StoreType} from "../../../Redux/redux-store";
-import {AddMessageAC, UpdateNewMessageTextAC} from "../../../Redux/dialogs-reducer";
 import {connect} from "react-redux";
-import {Dialogs} from "../../Dialogs/Dialogs";
-export type ArrayProfilePageState = {
-    profilePage: ArrayProfilePage
-    dispatch: (action: ActionType) => void
-}
+
 
 let mapStateToProps =(store: StoreType)=>{
 

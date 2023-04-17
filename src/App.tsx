@@ -7,15 +7,10 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ActionType, ArrayMessagePage, ArrayProfilePage} from "./Redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-export type StatePropsTypeAppSt = {
-    store: any
-    state: {profileReducer: ArrayProfilePage, dialogsReducer: ArrayMessagePage, newsReducer: {}, musicReducer: {}, settingsReducer: {}}
-    dispatch: (action: ActionType) => void
-}
-export const App=(props: StatePropsTypeAppSt)=> {
+
+export const App=()=> {
     return (
 
             <div className="app-wrapper">
@@ -23,10 +18,10 @@ export const App=(props: StatePropsTypeAppSt)=> {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route render={()=><Profile
-                        dispatch={props.dispatch}
-                        profilePage={props.state.profileReducer}
+
                     />} path={"/profile"}/>
                     <Route render={()=><DialogsContainer
+
                     />} path={"/dialogs"}/>
                     <Route render={()=><News/>} path={"/news"}/>
                     <Route render={()=><Music/>} path={"/music"}/>

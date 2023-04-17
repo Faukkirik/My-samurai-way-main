@@ -24,12 +24,10 @@ export const dialogsReducer = (state: ArrayMessagePage = dialogsPage, action: Ac
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessage = {id: new Date().toString(), message: state.newMessageText}
-            state.message.push(newMessage)
             state.newMessageText = ''
-            return state
+            return {...state, message: [...state.message, newMessage]}
         case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newMessageText = action.newText
-            return state
+            return {...state, newMessageText: action.newText}
         default:
             return state
     }

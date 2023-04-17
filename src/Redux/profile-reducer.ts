@@ -16,12 +16,10 @@ export const profileReducer =(state: ArrayProfilePage = profilePage, action: Act
     switch (action.type){
         case 'ADD-POST':
             const newPost = {id: new Date().toString(), message: state.newPostText, likeCount: 0}
-            state.post.push(newPost)
             state.newPostText = ''
-            return state
+            return {...state, post: [newPost,...state.post]}
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newText
-            return state
+            return {...state, newPostText: action.newText}
         default :
             return state
     }
