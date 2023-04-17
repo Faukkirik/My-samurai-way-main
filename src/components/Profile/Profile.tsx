@@ -13,10 +13,7 @@ export const Profile: React.FC<ArrayProfilePageState> =(props )=>{
     return(
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPostsContainer
-                profilePage={props.profilePage}
-                dispatch={props.dispatch}
-            />
+            <MyPostsContainer/>
         </div>
     )
 }

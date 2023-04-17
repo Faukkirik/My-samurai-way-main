@@ -3,7 +3,7 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -17,7 +17,7 @@ export type StatePropsTypeAppSt = {
 }
 export const App=(props: StatePropsTypeAppSt)=> {
     return (
-        <BrowserRouter>
+
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
@@ -27,15 +27,13 @@ export const App=(props: StatePropsTypeAppSt)=> {
                         profilePage={props.state.profileReducer}
                     />} path={"/profile"}/>
                     <Route render={()=><DialogsContainer
-                        dispatch={props.dispatch}
-                        messagePage={props.state.dialogsReducer}
                     />} path={"/dialogs"}/>
                     <Route render={()=><News/>} path={"/news"}/>
                     <Route render={()=><Music/>} path={"/music"}/>
                     <Route render={()=><Settings/>} path={"/settings"}/>
                 </div>
             </div>
-        </BrowserRouter>
+
     );
 }
 
