@@ -2,21 +2,19 @@ import React from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionType, PostPropsType} from "../../Redux/state";
+import {ActionType, ArrayProfilePage} from "../../Redux/store";
 
 export type ArrayProfilePageState = {
-    post: PostPropsType[]
+    profilePage: ArrayProfilePage
     dispatch: (action: ActionType) => void
-    newText: string
 }
 export const Profile: React.FC<ArrayProfilePageState> =(props )=>{
-
     return(
         <div className={s.content}>
             <ProfileInfo/>
             <MyPosts
-                post={props.post}
-                newPostText={props.newText}
+                post={props.profilePage.post}
+                newPostText={props.profilePage.newPostText}
                 dispatch={props.dispatch}
             />
         </div>

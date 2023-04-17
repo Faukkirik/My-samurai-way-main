@@ -8,13 +8,14 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StatePropsTypeApp} from "./Redux/state";
+import {ActionType, ArrayMessagePage, ArrayProfilePage} from "./Redux/store";
 
 export type StatePropsTypeAppSt = {
-    store: StatePropsTypeApp
+    store: any
+    state: {profileReducer: ArrayProfilePage, dialogsReducer: ArrayMessagePage, newsReducer: {}, musicReducer: {}, settingsReducer: {}}
+    dispatch: (action: ActionType) => void
 }
 export const App=(props: StatePropsTypeAppSt)=> {
-
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -22,13 +23,12 @@ export const App=(props: StatePropsTypeAppSt)=> {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route render={()=><Profile
-                        dispatch={props.store.dispatch.bind(props.store)}
-                        post={props.store._state.profilePage.post}
-                        newText={props.store._state.profilePage.newPostText}
+                        dispatch={props.dispatch}
+                        profilePage={props.state.profileReducer}
                     />} path={"/profile"}/>
                     <Route render={()=><Dialogs
-                        dispatch={props.store.dispatch.bind(props.store)}
-                        messagesPage={props.store._state.messagesPage}
+                        dispatch={props.dispatch}
+                        messagePage={props.state.dialogsReducer}
                     />} path={"/dialogs"}/>
                     <Route render={()=><News/>} path={"/news"}/>
                     <Route render={()=><Music/>} path={"/music"}/>

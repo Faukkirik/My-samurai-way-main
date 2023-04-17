@@ -42,17 +42,17 @@ export const store: StatePropsTypeApp = {
         return this._state
     },
 
-    dispatch(action: ActionType){
+    dispatch(action: any){
         this._state.profilePage = profileReducer(store._state.profilePage,action)
         this._state.messagesPage = dialogsReducer(store._state.messagesPage, action)
-        this._callSubscriber()
+        this._callSubscriber(this._state)
     }
 }
 
 
 export type StatePropsTypeApp = {
     _state: StatePropsType
-    _callSubscriber: ()=>void
+    _callSubscriber: (state: StatePropsType)=>void
     subscribe: (observer:()=>void)=>void
     getState: ()=>StatePropsType
     dispatch: (action: ActionType) => void
@@ -87,6 +87,9 @@ export type PostPropsType = {
     message: string,
     likeCount: number
 }
+
+
+
 
 export type AddPostActionType = ReturnType<typeof AddPostAC>
 export type UpdateNewPostTextActionType = ReturnType<typeof UpdateNewPostTextAC>
