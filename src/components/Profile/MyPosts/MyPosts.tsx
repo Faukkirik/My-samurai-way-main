@@ -1,19 +1,19 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ActionType, PostPropsType} from "../../../Redux/store";
-import {AddPostAC, UpdateNewPostTextAC} from "../../../Redux/profile-reducer";
+import {PostPropsType} from "../../../Redux/store";
 export type ArrayProfilePageState = {
     post: PostPropsType[]
     newPostText: string
-    dispatch: (action: ActionType)=> void
+    addPost:()=>void
+    onPostChange:(text: string)=>void
 }
 export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
     const addPost = () => {
-        props.dispatch(AddPostAC())
+        props.addPost()
     }
     const onPostChange =(e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.dispatch(UpdateNewPostTextAC(e.currentTarget.value))
+        props.onPostChange(e.currentTarget.value)
     }
     return (
         <div className={s.postBlock}>

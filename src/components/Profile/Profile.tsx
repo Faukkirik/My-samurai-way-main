@@ -1,8 +1,9 @@
 import React from "react";
 import s from './Profile.module.css'
-import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionType, ArrayProfilePage} from "../../Redux/store";
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+
 
 export type ArrayProfilePageState = {
     profilePage: ArrayProfilePage
@@ -12,9 +13,8 @@ export const Profile: React.FC<ArrayProfilePageState> =(props )=>{
     return(
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPosts
-                post={props.profilePage.post}
-                newPostText={props.profilePage.newPostText}
+            <MyPostsContainer
+                profilePage={props.profilePage}
                 dispatch={props.dispatch}
             />
         </div>
