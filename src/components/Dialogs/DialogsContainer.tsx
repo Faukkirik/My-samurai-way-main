@@ -1,9 +1,9 @@
 import React from "react";
-
 import {AddMessageAC, UpdateNewMessageTextAC} from "../../Redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/redux-store";
+import {Dispatch} from "redux";
 
 
 let mapStateToProps =(store: StoreType)=>{
@@ -12,7 +12,7 @@ let mapStateToProps =(store: StoreType)=>{
         messagePage: store.dialogsReducer
     }
 }
-let mapDispatchToProps=(dispatch:any)=>{
+let mapDispatchToProps=(dispatch:Dispatch)=>{
     return {
         addMessage: ()=> {
             dispatch(AddMessageAC())

@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PostPropsType} from "../../../Redux/store";
+import {PostPropsType} from "../../../Redux/profile-reducer";
+
 export type ArrayProfilePageState = {
     post: PostPropsType[]
     newPostText: string

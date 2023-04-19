@@ -1,5 +1,5 @@
-import {AddPostAC, profileReducer, UpdateNewPostTextAC} from "./profile-reducer";
-import {AddMessageAC, dialogsReducer, UpdateNewMessageTextAC} from "./dialogs-reducer";
+import {AddPostAC, UpdateNewPostTextAC} from "./profile-reducer";
+import {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
 
 // export const store: StatePropsTypeApp = {
 //     _state: {
@@ -70,19 +70,19 @@ export type ArrayMessagePage = {
     message: Array<MessagePropsType>
     newMessageText: string
 }
-export type DialogsPropsType = {
+type DialogsPropsType = {
     id: string,
     name: string
 }
-export type MessagePropsType = {
+type MessagePropsType = {
     id: string,
     message: string
 }
-export type ArrayProfilePage = {
+type ArrayProfilePage = {
     post: PostPropsType[]
     newPostText: string
 }
-export type PostPropsType = {
+type PostPropsType = {
     id?: string,
     message: string,
     likeCount: number

@@ -3,6 +3,7 @@ import {AddPostAC, UpdateNewPostTextAC} from "../../../Redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {StoreType} from "../../../Redux/redux-store";
 import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 
 let mapStateToProps =(store: StoreType)=>{
@@ -12,7 +13,7 @@ let mapStateToProps =(store: StoreType)=>{
         newPostText: store.profileReducer.newPostText
     }
 }
-let mapDispatchToProps=(dispatch:any)=>{
+let mapDispatchToProps=(dispatch:Dispatch)=>{
     return {
         addPost: ()=> {
             dispatch(AddPostAC())
