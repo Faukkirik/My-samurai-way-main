@@ -18,17 +18,35 @@ type UsersCPropsType = {
 class UsersC extends React.Component <any>{
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSiza}`)
+            .then(res => {
+                this.props.setUsers(res.data.items)
+                this.props.setTotalUsersCount(res.data.totalCount)
+
+            })
+    }
+    onPageChanged = (pageNumber: number)=> {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSiza}`)
             .then(res => {
                 this.props.setUsers(res.data.items)
 
             })
     }
-
     render() {
-
+        const pagesCount = this.props.totalUsersCount / this.props.pageSize
+        const pages = []
+        for (let i = 1; i <= Math.ceil(pagesCount); i++){
+            pages.push(i)
+        }
         return (
             <div>
+                <div>
+                    {pages.map((el: number)=>{
+                        return (<span className={this.props.currentPage === el ? s.selectedPage : ''} onClick={(e)=>{this.onPageChanged(el)}  }>{el}</span>)
+                    })}
+
+                </div>
                 {this.props.users.map((el:UsersCPropsType) => {
 
                     return <div key={el.id}>
