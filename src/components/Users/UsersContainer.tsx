@@ -1,17 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {StoreType} from "../../Redux/redux-store";
 
 import {Dispatch} from "redux";
 import {FollowAC, SetUsersAC, UnFollowAC, UserType} from "../../Redux/users-reducer";
+import UsersC from "./UsersC";
 
 let mapStateToProps =(store: StoreType)=>{
     return {
         users: store.usersReducer.users
     }
 }
-let mapDispatchToProps=(dispatch:Dispatch)=>{
+let mapDispatchToProps=(dispatch:Dispatch )=>{
     return {
         follow: (id:string)=> {
             dispatch(FollowAC(id))
@@ -25,4 +25,4 @@ let mapDispatchToProps=(dispatch:Dispatch)=>{
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
