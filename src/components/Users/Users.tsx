@@ -4,7 +4,7 @@ import axios from "axios";
 import photosUser from "../../assets/images/24-248309_transparent-profile-clipart-font-awesome-user-circle-hd.png"
 
 export const Users = (props: any) => {
-
+const getUsers =()=>{
     if (props.users.length === 0){
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(res => {
@@ -12,10 +12,13 @@ export const Users = (props: any) => {
 
             })
     }
+}
+
 
 
     return (
         <div>
+            <button onClick={getUsers}>Get users</button>
             {props.users.map((el:any) =><div key={el.id}>
                 <span>
                     <div>
