@@ -2,37 +2,36 @@ import React from 'react';
 import s from './Users.module.css'
 import axios from "axios";
 import photosUser from "../../assets/images/24-248309_transparent-profile-clipart-font-awesome-user-circle-hd.png"
-import {UserType} from "../../Redux/users-reducer";
-import {Matching} from "react-redux";
 
-// type UsersCPropsType = {
-//     name?: string
-//     id?: number
-//     uniqueUrlName?: string | null
-//     photos?: {
-//         large?: string | null
-//         small?: string | null
-//     }
-//     status?: string | null
-//     followed?: boolean
-// }
+type UsersCPropsType = {
+    name?: string
+    id?: number
+    uniqueUrlName?: string | null
+    photos: {
+        large: string | null
+        small: string | null
+    }
+    status?: string | null
+    followed?: boolean
+}
 
 class UsersC extends React.Component <any>{
 
-    constructor(props:  Matching<{ users: UserType[]; } & { follow: (id: string) => void; unFollow: (id: string) => void; setUsers: (users: UserType[]) => void; }, any>) {
-        debugger
-        super(props);
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(res => {
                 this.props.setUsers(res.data.items)
-                console.log(res.data.items)
+
             })
     }
 
     render() {
+
         return (
             <div>
-                {this.props.users.map((el:any) => <div key={el.id}>
+                {this.props.users.map((el:UsersCPropsType) => {
+
+                    return <div key={el.id}>
                 <span>
                     <div>
                         <img src={el.photos.small ? el.photos.small : photosUser} alt="" className={s.photo}/>
@@ -57,7 +56,7 @@ class UsersC extends React.Component <any>{
                         <div>{"el.location.city"}</div>
                     </span>
                 </span>
-                </div>)}
+                </div>})}
             </div>
         );
     };
