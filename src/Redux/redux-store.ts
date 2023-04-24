@@ -5,6 +5,7 @@ import {musicReducer} from "./music-reducer";
 import {settingsReducer} from "./settings-reducer";
 import {newsReducer} from "./news-reducer";
 import {usersReducer} from "./users-reducer";
+import {authReducer} from "./auth-reducer";
 
 const reducers = combineReducers({
     profileReducer: profileReducer,
@@ -12,8 +13,8 @@ const reducers = combineReducers({
     newsReducer: newsReducer,
     musicReducer: musicReducer,
     settingsReducer: settingsReducer,
-    usersReducer: usersReducer
+    usersReducer: usersReducer,
+    authReducer: authReducer
 });
-
 export type StoreType = ReturnType<typeof reducers>
 export const store = createStore(reducers)

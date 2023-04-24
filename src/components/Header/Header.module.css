@@ -6,3 +6,11 @@
     margin: 5px;
     width: 50px;
 }
+.loginBlock{
+    float: right;
+}
+.style{
+    color: black;
+    font-size: 35px;
+    text-decoration: none;
+}
