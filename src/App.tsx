@@ -21,7 +21,7 @@ export const App=()=> {
                 <div className="app-wrapper-content">
                     <Route render={()=><ProfileContainer
 
-                    />} path={"/profile"}/>
+                    />} path={"/profile/:userId?"}/>
                     <Route render={()=><DialogsContainer
 
                     />} path={"/dialogs"}/>
