@@ -1,16 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/redux-store";
-
-
 import {Dispatch} from "redux";
 import {
-    FollowAC,
-    SetCurrentPageAC,
-    SetUsersAC,
-    SetUsersTotalCountAC, ToggleIsFetchingAC,
-    UnFollowAC,
-    UserType
+    follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow
+
 } from "../../Redux/users-reducer";
 import axios from "axios";
 import {Users} from "./Users";
@@ -87,27 +81,34 @@ let mapStateToProps = (store: StoreType) => {
         isFetching: store.usersReducer.isFetching
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        follow: (id: string) => {
-            dispatch(FollowAC(id))
-        },
-        unFollow: (id: string) => {
-            dispatch(UnFollowAC(id))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(SetUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(SetCurrentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(SetUsersTotalCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(ToggleIsFetchingAC(isFetching))
-        },
-    }
-}
+// let mapDispatchToProps = (dispatch: Dispatch) => {
+//     return {
+//         follow: (id: string) => {
+//             dispatch(FollowAC(id))
+//         },
+//         unFollow: (id: string) => {
+//             dispatch(UnFollowAC(id))
+//         },
+//         setUsers: (users: Array<UserType>) => {
+//             dispatch(SetUsersAC(users))
+//         },
+//         setCurrentPage: (currentPage: number) => {
+//             dispatch(SetCurrentPageAC(currentPage))
+//         },
+//         setTotalUsersCount: (totalCount: number) => {
+//             dispatch(SetUsersTotalCountAC(totalCount))
+//         },
+//         toggleIsFetching: (isFetching: boolean) => {
+//             dispatch(ToggleIsFetchingAC(isFetching))
+//         },
+//     }
+// }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching,
+})(UsersAPIComponent)

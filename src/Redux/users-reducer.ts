@@ -1,9 +1,9 @@
-export type FollowedActionType = ReturnType<typeof FollowAC>
-export type UnFollowedActionType = ReturnType<typeof UnFollowAC>
-export type SetUsersActionType = ReturnType<typeof SetUsersAC>
-export type SetCurrentPageActionType = ReturnType<typeof SetCurrentPageAC>
-export type SetUsersTotalCountActionType = ReturnType<typeof SetUsersTotalCountAC>
-export type ToggleIsFetchingActionType = ReturnType<typeof ToggleIsFetchingAC>
+export type FollowedActionType = ReturnType<typeof follow>
+export type UnFollowedActionType = ReturnType<typeof unFollow>
+export type SetUsersActionType = ReturnType<typeof setUsers>
+export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
+export type SetUsersTotalCountActionType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 
 export type ActionType = FollowedActionType | UnFollowedActionType | SetUsersActionType | SetCurrentPageActionType | SetUsersTotalCountActionType | ToggleIsFetchingActionType
 
@@ -37,21 +37,21 @@ export const usersReducer =(state:UsersType = userPage, action: ActionType):User
     }
 }
 
-export const FollowAC =(id: string)=>{
+export const follow =(id: string)=>{
     return {type: 'FOLLOW', id: id}as const
 }
-export const UnFollowAC =(id: string)=>{
+export const unFollow =(id: string)=>{
     return {type: 'UN-FOLLOW', id: id}as const
 }
-export const SetUsersAC =(users: Array<UserType>)=>{
+export const setUsers =(users: Array<UserType>)=>{
     return {type: 'SET-USERS', users: users}as const
 }
-export const SetCurrentPageAC =(currentPage: number)=>{
+export const setCurrentPage =(currentPage: number)=>{
     return {type: 'SET-CURRENT-PAGE', currentPage: currentPage}as const
 }
-export const SetUsersTotalCountAC =(totalCount: number)=>{
+export const setTotalUsersCount =(totalCount: number)=>{
     return {type: 'SET-TOTAL-USER-COUNT', totalCount: totalCount}as const
 }
-export const ToggleIsFetchingAC =(isFetching: boolean)=>{
+export const toggleIsFetching =(isFetching: boolean)=>{
     return {type: 'TOGGLE-IS-FETCHING', isFetching: isFetching}as const
 }
