@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import photosUser from "../../assets/images/24-248309_transparent-profile-clipart-font-awesome-user-circle-hd.png"
 import {UsersCPropsType} from "./UsersContainer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 export const Users = (props: any) => {
@@ -33,10 +34,28 @@ export const Users = (props: any) => {
                     <div>
                         {el.followed
                             ? <button onClick={() => {
-                                props.unFollow(el.id)
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                    withCredentials: true, headers:{
+                                       "API-KEY" :"a22037d2-5c98-4d70-ad45-1b7b1066eaea"
+                                    }
+                                })
+                                    .then(res => {
+                                        if (res.data.resultCode === 0) {
+                                            props.unFollow(el.id)
+                                        }
+                                    })
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                props.follow(el.id)
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
+                                    withCredentials: true, headers:{
+                                        "API-KEY" :"a22037d2-5c98-4d70-ad45-1b7b1066eaea"
+                                    }
+                                })
+                                    .then(res => {
+                                        if (res.data.resultCode === 0) {
+                                            props.follow(el.id)
+                                        }
+                                    })
                             }}>Follow</button>}
                     </div>
                 </span>

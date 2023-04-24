@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
 import {
     follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow
 
@@ -26,7 +25,7 @@ class UsersAPIComponent extends React.Component <any> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSiza}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSiza}`,{withCredentials: true})
             .then(res => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(res.data.items)
@@ -38,7 +37,7 @@ class UsersAPIComponent extends React.Component <any> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSiza}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSiza}`,{withCredentials: true})
             .then(res => {
                 this.props.setUsers(res.data.items)
                 this.props.toggleIsFetching(false)
