@@ -2,12 +2,13 @@ import React from 'react';
 import s from './Users.module.css'
 import photosUser from "../../assets/images/24-248309_transparent-profile-clipart-font-awesome-user-circle-hd.png"
 import {UsersCPropsType} from "./UsersContainer";
+import {NavLink} from "react-router-dom";
 
 
 export const Users = (props: any) => {
     const pagesCount = props.totalUsersCount / props.pageSize
     const pages = []
-    for (let i = 1; i <= Math.ceil(pagesCount); i++){
+    for (let i = 1; i <= Math.ceil(pagesCount); i++) {
         pages.push(i)
     }
 
@@ -22,11 +23,12 @@ export const Users = (props: any) => {
 
             </div>
             {props.users.map((el: UsersCPropsType) => {
-
                 return <div key={el.id}>
                 <span>
                     <div>
-                        <img src={el.photos.small ? el.photos.small : photosUser} alt="" className={s.photo}/>
+                        <NavLink to={`profile/${el.id}`}>
+                            <img src={el.photos.small ? el.photos.small : photosUser} alt="" className={s.photo}/>
+                        </NavLink>
                     </div>
                     <div>
                         {el.followed

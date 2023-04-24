@@ -1,6 +1,7 @@
 export type AddPostActionType = ReturnType<typeof AddPostAC>
 export type UpdateNewPostTextActionType = ReturnType<typeof UpdateNewPostTextAC>
-export type ActionType = AddPostActionType | UpdateNewPostTextActionType
+export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
+export type ActionType = AddPostActionType | UpdateNewPostTextActionType | SetUserProfileActionType
 
 const profilePage: ArrayProfilePage = {
     post: [
@@ -8,11 +9,13 @@ const profilePage: ArrayProfilePage = {
         {id: "2", message: "It's my first post", likeCount: 12},
         {id: "3", message: "omg", likeCount: 27},
     ] as PostPropsType[],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 export type ArrayProfilePage = {
     post: PostPropsType[]
     newPostText: string
+    profile: null | {}
 }
 export type PostPropsType = {
     id?: string,
@@ -29,6 +32,8 @@ export const profileReducer =(state: ArrayProfilePage = profilePage, action: Act
 
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.newText}
+        case 'SET-USER-PROFILE':
+            return {...state, profile: action.profile}
         default :
             return state
     }
@@ -39,4 +44,7 @@ export const AddPostAC =()=>{
 }
 export const UpdateNewPostTextAC =(text: string)=>{
     return {type: 'UPDATE-NEW-POST-TEXT', newText: text}as const
+}
+export const setUserProfile =(profile: string)=>{
+    return {type: 'SET-USER-PROFILE', profile: profile}as const
 }
