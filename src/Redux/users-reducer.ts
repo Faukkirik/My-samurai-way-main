@@ -4,15 +4,17 @@ export type SetUsersActionType = ReturnType<typeof setUsers>
 export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
 export type SetUsersTotalCountActionType = ReturnType<typeof setTotalUsersCount>
 export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
+export type toggleIsFollowingActionType = ReturnType<typeof toggleIsFollowing>
 
-export type ActionType = FollowedActionType | UnFollowedActionType | SetUsersActionType | SetCurrentPageActionType | SetUsersTotalCountActionType | ToggleIsFetchingActionType
+export type ActionType = FollowedActionType | UnFollowedActionType | SetUsersActionType | SetCurrentPageActionType | SetUsersTotalCountActionType | ToggleIsFetchingActionType | toggleIsFollowingActionType
 
 const userPage = {
     users: [] as Array<UserType>,
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [2,3]
 }
 export type UserType = {
     id: string, photoUrl:string, followed: boolean, fullName: string, status: string, location: {city: string, country: string}
@@ -32,6 +34,10 @@ export const usersReducer =(state:UsersType = userPage, action: ActionType):User
             return {...state, totalUsersCount: action.totalCount}
         case 'TOGGLE-IS-FETCHING':
             return {...state, isFetching: action.isFetching}
+        case 'TOGGLE-IS-FOLLOWING-PROGRESS':
+            return {...state, followingInProgress: action.followingInProgress
+                    ? [...state.followingInProgress, action.id]
+                    : state.followingInProgress.filter(el=>el !== action.id)}
         default :
             return state
     }
@@ -54,4 +60,7 @@ export const setTotalUsersCount =(totalCount: number)=>{
 }
 export const toggleIsFetching =(isFetching: boolean)=>{
     return {type: 'TOGGLE-IS-FETCHING', isFetching: isFetching}as const
+}
+export const toggleIsFollowing =(followingInProgress: boolean, id: number)=>{
+    return {type: 'TOGGLE-IS-FOLLOWING-PROGRESS', followingInProgress: followingInProgress, id}as const
 }

@@ -4,6 +4,7 @@ import photosUser from "../../assets/images/24-248309_transparent-profile-clipar
 import {UsersCPropsType} from "./UsersContainer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {toggleIsFollowing} from "../../Redux/users-reducer";
 
 
 export const Users = (props: any) => {
@@ -33,7 +34,8 @@ export const Users = (props: any) => {
                     </div>
                     <div>
                         {el.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress.some((id: number) => id === el.id)} onClick={() => {
+                                props.toggleIsFollowing(true, el.id)
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
                                     withCredentials: true, headers:{
                                        "API-KEY" :"a22037d2-5c98-4d70-ad45-1b7b1066eaea"
@@ -43,9 +45,11 @@ export const Users = (props: any) => {
                                         if (res.data.resultCode === 0) {
                                             props.unFollow(el.id)
                                         }
+                                        props.toggleIsFollowing(false, el.id)
                                     })
                             }}>Unfollow</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress.some((id: number) => id === el.id)} onClick={() => {
+                                props.toggleIsFollowing(true, el.id)
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
                                     withCredentials: true, headers:{
                                         "API-KEY" :"a22037d2-5c98-4d70-ad45-1b7b1066eaea"
@@ -55,6 +59,7 @@ export const Users = (props: any) => {
                                         if (res.data.resultCode === 0) {
                                             props.follow(el.id)
                                         }
+                                        props.toggleIsFollowing(false, el.id)
                                     })
                             }}>Follow</button>}
                     </div>
