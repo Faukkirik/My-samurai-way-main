@@ -3,13 +3,15 @@ import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {ArrayMessagePage} from "../../Redux/store";
+import {DialogsPropsType, MessagePropsType} from "../../Redux/dialogs-reducer";
+import {Redirect} from "react-router-dom";
 
 export type DialogsType = {
     messagePage: ArrayMessagePage
     onMessageChange:(text: string)=>void
     addMessage:()=>void
 }
-export const Dialogs = (props: DialogsType) => {
+export const Dialogs = (props: any) => {
 
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onMessageChange(e.currentTarget.value)
@@ -17,10 +19,11 @@ export const Dialogs = (props: DialogsType) => {
     const addMessage = () => {
         props.addMessage()
     }
+    if (!props.isAuth) return <Redirect to={"/login"}/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {props.messagePage.dialogs.map((el) => {
+                {props.messagePage.dialogs.map((el:DialogsPropsType) => {
                     return (
                         <DialogItem
                             id={el.id}
@@ -30,7 +33,7 @@ export const Dialogs = (props: DialogsType) => {
                 })}
             </div>
             <div className={s.messages}>
-                <div>{props.messagePage.message.map((el) => {
+                <div>{props.messagePage.message.map((el:MessagePropsType) => {
                     return (
                         <Message
                             id={el.id}

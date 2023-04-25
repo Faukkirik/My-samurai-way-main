@@ -9,7 +9,8 @@ import {Dispatch} from "redux";
 let mapStateToProps =(store: StoreType)=>{
 
     return {
-        messagePage: store.dialogsReducer
+        messagePage: store.dialogsReducer,
+        isAuth: store.authReducer.isAuth
     }
 }
 let mapDispatchToProps=(dispatch:Dispatch)=>{
