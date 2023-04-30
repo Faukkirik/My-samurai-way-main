@@ -3,13 +3,26 @@ import s from './Profile.module.css'
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile} from "../../Redux/profile-reducer";
-import {Redirect, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {StoreType} from "../../Redux/redux-store";
+
+type PathParamsType ={
+    userId:  string
+}
 
 
-
-class ProfileContainer extends React.Component<any, any> {
+type MapStatePropsType = {
+    profile: any
+}
+type MapDispatchPropsType ={
+    getUserProfile: (userId: number)=>void
+}
+type OwnPropsType = MapStatePropsType & MapDispatchPropsType
+type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = Number(this.props.match.params.userId)
         if (!userId) {
             userId = 2;
         }
@@ -17,7 +30,6 @@ class ProfileContainer extends React.Component<any, any> {
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to={"/login"}/>
         return (
             <div className={s.content}>
                 <Profile {...this.props} profile={this.props.profile}/>
@@ -26,12 +38,13 @@ class ProfileContainer extends React.Component<any, any> {
     }
 }
 
-const mapStateToProps = (store: any) => {
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
+let mapStateToProps = (store: StoreType):MapStatePropsType => {
     return {
         profile: store.profileReducer.profile,
-        isAuth: store.authReducer.isAuth
     }
 }
-const WithUrlDataContainerComponent = withRouter(ProfileContainer)
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent)
+export default withAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent))
