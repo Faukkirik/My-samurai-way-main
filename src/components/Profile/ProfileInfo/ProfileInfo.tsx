@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css'
 import {Preloader} from "../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus"
 
+
 export const ProfileInfo = (props: any) => {
     if (!props.profile){
         return <Preloader/>
@@ -18,7 +19,7 @@ export const ProfileInfo = (props: any) => {
                 <div>{props.profile.aboutMe}</div>
                 <div><a href={props.profile.contacts.facebook}>facebook - {props.profile.contacts.facebook}</a></div>
                 <div><a href={props.profile.contacts.twitter}>twitter - {props.profile.contacts.twitter}</a></div>
-                <ProfileStatus status={"Hello man!"}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
             </div>
         </div>
     )
