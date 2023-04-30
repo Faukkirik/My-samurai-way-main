@@ -11,6 +11,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export type UsersCPropsType = {
     name?: string
@@ -68,17 +69,16 @@ let mapStateToProps = (store: StoreType) => {
         followingInProgress: store.usersReducer.followingInProgress
     }
 }
-//let withRedirect = withAuthRedirect(UsersContainer)
-
-export const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setCurrentPage,
-    toggleIsFollowing,
-    getUsers,
-})(UsersAPIComponent))
-
-
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        follow,
+        unFollow,
+        setCurrentPage,
+        toggleIsFollowing,
+        getUsers,
+    })
+)(UsersAPIComponent)
 
 
 

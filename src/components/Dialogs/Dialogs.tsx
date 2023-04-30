@@ -4,7 +4,6 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {ArrayMessagePage} from "../../Redux/store";
 import {DialogsPropsType, MessagePropsType} from "../../Redux/dialogs-reducer";
-import {Redirect} from "react-router-dom";
 
 export type DialogsType = {
     messagePage: ArrayMessagePage
