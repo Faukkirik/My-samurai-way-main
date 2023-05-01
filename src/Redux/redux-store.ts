@@ -7,6 +7,7 @@ import {newsReducer} from "./news-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk"
+import { reducer as formReducer } from "redux-form"
 
 const reducers = combineReducers({
     profileReducer: profileReducer,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
     settingsReducer: settingsReducer,
     usersReducer: usersReducer,
     authReducer: authReducer,
+    form: formReducer
 });
 export type StoreType = ReturnType<typeof reducers>
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
