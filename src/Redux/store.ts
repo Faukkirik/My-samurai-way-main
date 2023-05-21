@@ -1,5 +1,5 @@
-import {AddPostAC, UpdateNewPostTextAC} from "./profile-reducer";
-import {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
+import {AddPostAC} from "./profile-reducer";
+import {AddMessageAC} from "./dialogs-reducer";
 
 // export const store: StatePropsTypeApp = {
 //     _state: {
@@ -92,9 +92,7 @@ type PostPropsType = {
 
 
 export type AddPostActionType = ReturnType<typeof AddPostAC>
-export type UpdateNewPostTextActionType = ReturnType<typeof UpdateNewPostTextAC>
 export type AddMessageActionType = ReturnType<typeof AddMessageAC>
-export type UpdateNewMessageTextActionType = ReturnType<typeof UpdateNewMessageTextAC>
-export type ActionType = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageTextActionType
+export type ActionType = AddPostActionType | AddMessageActionType
 // @ts-ignore
 window.store = store

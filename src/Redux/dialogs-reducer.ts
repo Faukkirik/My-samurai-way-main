@@ -1,6 +1,5 @@
 export type AddMessageActionType = ReturnType<typeof AddMessageAC>
-export type UpdateNewMessageTextActionType = ReturnType<typeof UpdateNewMessageTextAC>
-export type ActionType = AddMessageActionType | UpdateNewMessageTextActionType
+export type ActionType = AddMessageActionType
 
 const dialogsPage: ArrayMessagePage = {
     dialogs: [
@@ -15,13 +14,11 @@ const dialogsPage: ArrayMessagePage = {
         {id: "2", message: "Hi,hi"},
         {id: "3", message: "How are you?"},
         {id: "4", message: "I'm , Oke"},
-    ] as MessagePropsType[],
-    newMessageText: ''
+    ] as MessagePropsType[]
 }
 export type ArrayMessagePage = {
     dialogs: Array<DialogsPropsType>
     message: Array<MessagePropsType>
-    newMessageText: string
 }
 export type DialogsPropsType = {
     id: string,
@@ -34,19 +31,14 @@ export type MessagePropsType = {
 export const dialogsReducer = (state: ArrayMessagePage = dialogsPage, action: ActionType): ArrayMessagePage => {
     switch (action.type) {
         case 'ADD-MESSAGE':
-            const newMessage = {id: new Date().toString(), message: state.newMessageText}
-            state.newMessageText = ''
+            const newMessage = {id: new Date().toString(), message: action.newMessageBody}
+
             return {...state, message: [...state.message, newMessage]}
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return {...state, newMessageText: action.newText}
         default:
             return state
     }
 }
 
-export const AddMessageAC =()=>{
-    return {type: 'ADD-MESSAGE'}as const
-}
-export const UpdateNewMessageTextAC =(text: string)=>{
-    return {type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text}as const
+export const AddMessageAC =(newMessageBody: string)=>{
+    return {type: 'ADD-MESSAGE', newMessageBody}as const
 }
