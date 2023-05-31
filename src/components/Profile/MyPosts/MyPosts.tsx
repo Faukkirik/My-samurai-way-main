@@ -3,12 +3,14 @@ import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostPropsType} from "../../../Redux/profile-reducer";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
 export type ArrayProfilePageState = {
     post: PostPropsType[]
-    addPost:(newPostText: string)=>void
-    onPostChange:(text: string)=>void
+    addPost: (newPostText: string) => void
+    onPostChange: (text: string) => void
 }
 export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
     const onAddPost = (values: any) => {
@@ -28,12 +30,12 @@ export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
         </div>
     )
 }
-
-export function AddNewPostForm (props: any){
-    return(
+const maxLength10 = maxLengthCreator(10)
+export function AddNewPostForm(props: any) {
+    return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={"newPostText"} component={"textarea"}/>
+                <Field name={"newPostText"} component={Textarea} placeholder={"post message"} validate={[required, maxLength10]}/>
             </div>
             <div>
                 <button>Add post</button>
@@ -41,4 +43,5 @@ export function AddNewPostForm (props: any){
         </form>
     )
 }
+
 export const AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm)
