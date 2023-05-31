@@ -46,13 +46,12 @@ export const Dialogs = (props: any) => {
         </div>
     )
 }
-
+const maxLength50 = maxLengthCreator(50)
 export const AddMessageForm = (props: any) => {
-    const maxLength100 = maxLengthCreator(100)
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={Textarea} validate={[required, maxLength100]} name={"newMessageBody"} placeholder={'Enter your message'}/>
+                <Field component={Textarea} validate={[required, maxLength50]} name={"newMessageBody"} placeholder={'Enter your message'}/>
             </div>
             <div>
                 <button>Send</button>

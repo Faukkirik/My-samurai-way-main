@@ -1,8 +1,16 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 
-export type setUserDataActionType = ReturnType<typeof setUserData>
 
+export type setUserDataActionType = {
+    type:  'SET-USER-DATA'
+    data: {
+        id: number | null
+        email: string | null
+        login: string | null
+        isAuth: boolean | null
+    }
+}
 export type ActionType = setUserDataActionType
 
 const authPage = {
@@ -29,15 +37,33 @@ export const authReducer =(state: authPageType = authPage, action: ActionType):a
     }
 }
 
-export const setUserData =(data: {id: number, email: string, login: string})=>{
-    return {type: 'SET-USER-DATA', data}as const
+export const setUserData =(id: number, email: string, login: string, isAuth: boolean): setUserDataActionType=>{
+    return {type: 'SET-USER-DATA', data:{id, email, login, isAuth}}as const
 }
 export const getAuthUserData =()=>(dispatch: Dispatch)=>{
     authAPI.me()
         .then(res => {
             if (res.data.resultCode === 0 ){
                 let {id, login, email} = res.data.data
-                dispatch(setUserData({id, login, email}))
+                dispatch(setUserData(id, login, email, true))
+            }
+        })
+}
+export const login =(email: string, password: string, rememberMe: boolean)=>(dispatch: Dispatch)=>{
+    authAPI.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data.resultCode === 0 ){
+                // @ts-ignore
+                dispatch(getAuthUserData())
+            }
+        })
+}
+export const logout =()=>(dispatch: Dispatch)=>{
+    authAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === 0 ){
+                // @ts-ignore
+                dispatch(setUserData(null, null, null, false))
             }
         })
 }
