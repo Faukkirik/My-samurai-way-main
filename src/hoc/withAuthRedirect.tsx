@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {StoreType} from "../Redux/redux-store";
 
 type MapStatePropsType = {
-    isAuth: boolean
+    isAuth: boolean | null
 }
 let mapStateToForRedirectProps = (store: StoreType):MapStatePropsType => ({
     isAuth: store.authReducer.isAuth

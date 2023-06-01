@@ -25,13 +25,13 @@ export type authPageType = {
     login: null | string
     email: null | string
     isFetching: boolean
-    isAuth: boolean
+    isAuth: boolean | null
 }
 
 export const authReducer =(state: authPageType = authPage, action: ActionType):authPageType=>{
     switch (action.type){
         case 'SET-USER-DATA':
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.data}
         default :
             return state
     }

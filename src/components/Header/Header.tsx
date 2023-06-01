@@ -8,7 +8,9 @@ export const Header = (props: any) => {
             <img src="https://cdn.onlinewebfonts.com/svg/download_333365.png" alt="LOW"/>
 
             <div className={`${s.loginBlock} ${s.style}`}>
-                {props.isAuth ? props.login : <NavLink to={'/login'} className={s.style}>Login</NavLink>}
+                {props.isAuth
+                    ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div>
+                    : <NavLink to={'/login'} className={s.style}>Login</NavLink>}
 
             </div>
         </header>
