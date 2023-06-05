@@ -10,7 +10,6 @@ import {
 } from "../../Redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 export type UsersCPropsType = {
@@ -70,7 +69,6 @@ let mapStateToProps = (store: StoreType) => {
     }
 }
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps, {
         follow,
         unFollow,
@@ -79,6 +77,7 @@ export default compose<React.ComponentType>(
         getUsers,
     })
 )(UsersAPIComponent)
+//withAuthRedirect,
 
 
 

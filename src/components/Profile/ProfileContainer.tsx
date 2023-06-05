@@ -31,6 +31,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         if (!userId) {
             // @ts-ignore
             userId = this.props.authorizedUserId;
+            if (!userId){
+                this.props.history.push("/login")
+            }
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
@@ -40,7 +43,10 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     render() {
         return (
             <div className={s.content}>
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+                <Profile {...this.props}
+                         profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatus={this.props.updateStatus}/>
             </div>
         )
     }
