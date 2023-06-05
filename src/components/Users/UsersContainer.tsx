@@ -11,6 +11,12 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPageSelector, getFollowingInProgressSelector, getIsFetchingSelector,
+    getPageSizeSelector,
+    getTotalUsersCountSelector,
+    getUsersSelector
+} from "../../Redux/users-selectors";
 
 export type UsersCPropsType = {
     name?: string
@@ -58,14 +64,24 @@ class UsersAPIComponent extends React.Component <any> {
 
 
 
+// let mapStateToProps = (store: StoreType) => {
+//     return {
+//         users: store.usersReducer.users,
+//         pageSize: store.usersReducer.pageSize,
+//         totalUsersCount: store.usersReducer.totalUsersCount,
+//         currentPage: store.usersReducer.currentPage,
+//         isFetching: store.usersReducer.isFetching,
+//         followingInProgress: store.usersReducer.followingInProgress
+//     }
+// }
 let mapStateToProps = (store: StoreType) => {
     return {
-        users: store.usersReducer.users,
-        pageSize: store.usersReducer.pageSize,
-        totalUsersCount: store.usersReducer.totalUsersCount,
-        currentPage: store.usersReducer.currentPage,
-        isFetching: store.usersReducer.isFetching,
-        followingInProgress: store.usersReducer.followingInProgress
+        users: getUsersSelector(store),
+        pageSize: getPageSizeSelector(store),
+        totalUsersCount: getTotalUsersCountSelector(store),
+        currentPage: getCurrentPageSelector(store),
+        isFetching: getIsFetchingSelector(store),
+        followingInProgress: getFollowingInProgressSelector(store)
     }
 }
 export default compose<React.ComponentType>(

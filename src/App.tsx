@@ -17,14 +17,15 @@ import {StoreType} from "./Redux/redux-store";
 import {Preloader} from "./components/common/preloader/Preloader";
 
 
-class App extends React.Component {
+export class App extends React.Component<any, any> {
+
     componentDidMount() {
-        // @ts-ignore
+
         this.props.initializeApp()
     }
 
     render() {
-        // @ts-ignore
+
         if (!this.props.initialized){
             return <Preloader/>
         }
@@ -57,6 +58,6 @@ const mapStateToProps =(store: StoreType)=>({
     initialized: store.appReducer.initialized
 })
 
-export default compose(
+export default compose<any>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App)
