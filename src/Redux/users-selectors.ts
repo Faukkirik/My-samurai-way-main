@@ -1,4 +1,5 @@
 import {StoreType} from "./redux-store";
+import {createSelector} from "reselect";
 
 export const getUsersSelector=(store: StoreType)=>{
     return store.usersReducer.users
@@ -18,3 +19,6 @@ export const getIsFetchingSelector=(store: StoreType)=>{
 export const getFollowingInProgressSelector=(store: StoreType)=>{
     return store.usersReducer.followingInProgress
 }
+export const getUsersSuperSelector = createSelector(getUsersSelector, (users)=>{
+    return users.filter((u) => u)
+})

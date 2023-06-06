@@ -15,7 +15,7 @@ import {
     getCurrentPageSelector, getFollowingInProgressSelector, getIsFetchingSelector,
     getPageSizeSelector,
     getTotalUsersCountSelector,
-    getUsersSelector
+    getUsersSuperSelector
 } from "../../Redux/users-selectors";
 
 export type UsersCPropsType = {
@@ -76,7 +76,7 @@ class UsersAPIComponent extends React.Component <any> {
 // }
 let mapStateToProps = (store: StoreType) => {
     return {
-        users: getUsersSelector(store),
+        users: getUsersSuperSelector(store),
         pageSize: getPageSizeSelector(store),
         totalUsersCount: getTotalUsersCountSelector(store),
         currentPage: getCurrentPageSelector(store),
