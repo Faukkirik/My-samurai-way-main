@@ -12,7 +12,8 @@ export type ArrayProfilePageState = {
     addPost: (newPostText: string) => void
     onPostChange: (text: string) => void
 }
-export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
+
+export const MyPosts = React.memo((props: ArrayProfilePageState)=> {
     const onAddPost = (values: any) => {
         props.addPost(values.newPostText)
     }
@@ -29,7 +30,8 @@ export const MyPosts: React.FC<ArrayProfilePageState> = (props) => {
             </div>
         </div>
     )
-}
+})
+
 const maxLength10 = maxLengthCreator(10)
 export function AddNewPostForm(props: any) {
     return (
