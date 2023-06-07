@@ -4,7 +4,8 @@ import {profileAPI, usersAPI} from "../api/api";
 export type AddPostActionType = ReturnType<typeof AddPostAC>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetUserStatusActionType = ReturnType<typeof setUserStatus>
-export type ActionType = AddPostActionType | SetUserProfileActionType | SetUserStatusActionType
+export type DeletePostActionType = ReturnType<typeof DeletePostAC>
+export type ActionType = AddPostActionType | SetUserProfileActionType | SetUserStatusActionType | DeletePostActionType
 
 const profilePage: ArrayProfilePage = {
     post: [
@@ -30,6 +31,8 @@ export const profileReducer =(state: ArrayProfilePage = profilePage, action: Act
         case 'ADD-POST':
             const newPost = {id: new Date().toString(), message: action.newPostText, likeCount: 0}
             return {...state, post: [newPost,...state.post]}
+        case 'DELETE-POST':
+            return {...state, post: state.post.filter(p=>p.id !== action.id)}
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile}
         case 'SET-USER-STATUS':
@@ -41,6 +44,9 @@ export const profileReducer =(state: ArrayProfilePage = profilePage, action: Act
 
 export const AddPostAC =(newPostText: string)=>{
     return {type: 'ADD-POST', newPostText}as const
+}
+export const DeletePostAC =(id: string)=>{
+    return {type: 'DELETE-POST', id}as const
 }
 export const setUserProfile =(profile: string)=>{
     return {type: 'SET-USER-PROFILE', profile: profile}as const
