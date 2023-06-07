@@ -41,19 +41,15 @@ export const authReducer =(state: authPageType = authPage, action: ActionType):a
 export const setUserData =(id: number, email: string, login: string, isAuth: boolean): setUserDataActionType=>{
     return {type: 'SET-USER-DATA', data:{id, email, login, isAuth}}as const
 }
-export const getAuthUserData =()=>(dispatch: Dispatch)=>{
-   return  authAPI.me()
-        .then(res => {
+export const getAuthUserData =()=> async (dispatch: Dispatch)=>{
+   let res = await  authAPI.me()
             if (res.data.resultCode === 0 ){
                 let {id, login, email} = res.data.data
                 dispatch(setUserData(id, login, email, true))
             }
-        })
 }
-export const login =(email: string, password: string, rememberMe: boolean)=>(dispatch: Dispatch)=>{
-
-    authAPI.login(email, password, rememberMe)
-        .then(res => {
+export const login =(email: string, password: string, rememberMe: boolean)=> async  (dispatch: Dispatch)=>{
+   let res = await authAPI.login(email, password, rememberMe)
             if (res.data.resultCode === 0 ){
                 // @ts-ignore
                 dispatch(getAuthUserData())
@@ -61,14 +57,11 @@ export const login =(email: string, password: string, rememberMe: boolean)=>(dis
                 let message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error"
                 dispatch(stopSubmit("login",{_error: message}))
             }
-        })
 }
-export const logout =()=>(dispatch: Dispatch)=>{
-    authAPI.logout()
-        .then(res => {
+export const logout =()=> async (dispatch: Dispatch)=>{
+    let res = await authAPI.logout()
             if (res.data.resultCode === 0 ){
                 // @ts-ignore
                 dispatch(setUserData(null, null, null, false))
-            }
-        })
+        }
 }

@@ -16,6 +16,7 @@ export type ArrayProfilePageState = {
 export const MyPosts = React.memo((props: ArrayProfilePageState)=> {
     const onAddPost = (values: any) => {
         props.addPost(values.newPostText)
+
     }
     return (
         <div className={s.postBlock}>

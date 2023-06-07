@@ -4,22 +4,19 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 
-export const ProfileInfo = (props: any) => {
-    if (!props.profile){
+export const ProfileInfo = ({profile, status, updateStatus}: any) => {
+    if (!profile){
         return <Preloader/>
     }
     return (
         <div>
-            {/*<div>*/}
-            {/*    <img src="https://img3.badfon.ru/original/1920x1080/e/34/utro-tuman-lep-peyzazh-3038.jpg" alt="LOW"/>*/}
-            {/*</div>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large ? props.profile.photos.large: ''} alt={'hey'}/>
-                <div>{props.profile.fullName}</div>
-                <div>{props.profile.aboutMe}</div>
-                <div><a href={props.profile.contacts.facebook}>facebook - {props.profile.contacts.facebook}</a></div>
-                <div><a href={props.profile.contacts.twitter}>twitter - {props.profile.contacts.twitter}</a></div>
-                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
+                <img src={profile.photos.large ? profile.photos.large: ''} alt={'hey'}/>
+                <div>{profile.fullName}</div>
+                <div>{profile.aboutMe}</div>
+                <div><a href={profile.contacts.facebook}>facebook - {profile.contacts.facebook}</a></div>
+                <div><a href={profile.contacts.twitter}>twitter - {profile.contacts.twitter}</a></div>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
             </div>
         </div>
     )

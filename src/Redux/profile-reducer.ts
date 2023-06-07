@@ -54,23 +54,17 @@ export const setUserProfile =(profile: string)=>{
 export const setUserStatus =(status: string)=>{
     return {type: 'SET-USER-STATUS', status: status}as const
 }
-export const getUserProfile =(userId: number)=> (dispatch: Dispatch) =>{
-    usersAPI.getProfile(userId)
-        .then(res => {
+export const getUserProfile =(userId: number)=> async (dispatch: Dispatch) =>{
+    const res = await usersAPI.getProfile(userId)
             dispatch(setUserProfile(res.data))
-        })
 }
-export const getStatus =(userId: number)=> (dispatch: Dispatch) =>{
-    profileAPI.getStatus(userId)
-        .then(res => {
+export const getStatus =(userId: number)=> async (dispatch: Dispatch) =>{
+    const res = await profileAPI.getStatus(userId)
             dispatch(setUserStatus(res.data))
-        })
 }
-export const updateStatus =(status: string)=> (dispatch: Dispatch) =>{
-    profileAPI.updateStatus(status)
-        .then(res => {
+export const updateStatus =(status: string)=> async (dispatch: Dispatch) =>{
+    const res = await profileAPI.updateStatus(status)
             if (res.data.resultCode === 0){
                 dispatch(setUserStatus(res.data))
             }
-        })
 }
