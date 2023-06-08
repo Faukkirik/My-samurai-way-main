@@ -29,7 +29,6 @@ class ProfileStatus extends React.Component<any, any> {
                 status: this.props.status
             })
         }
-        console.log('Update')
     }
 
     render() {
