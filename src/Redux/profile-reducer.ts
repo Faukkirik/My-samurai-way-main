@@ -5,7 +5,8 @@ export type AddPostActionType = ReturnType<typeof AddPostAC>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetUserStatusActionType = ReturnType<typeof setUserStatus>
 export type DeletePostActionType = ReturnType<typeof DeletePostAC>
-export type ActionType = AddPostActionType | SetUserProfileActionType | SetUserStatusActionType | DeletePostActionType
+export type SavePhotoSuccessActionType = ReturnType<typeof savePhotoSuccess>
+export type ActionType = AddPostActionType | SetUserProfileActionType | SetUserStatusActionType | DeletePostActionType | SavePhotoSuccessActionType
 
 const profilePage: ArrayProfilePage = {
     post: [
@@ -37,6 +38,8 @@ export const profileReducer =(state: ArrayProfilePage = profilePage, action: Act
             return {...state, profile: action.profile}
         case 'SET-USER-STATUS':
             return {...state, status: action.status}
+        case 'SET-PHOTO-SUCCESS':
+            return {...state, profile: {...state.profile, photos: action.photos}}
         default :
             return state
     }
@@ -54,6 +57,9 @@ export const setUserProfile =(profile: string)=>{
 export const setUserStatus =(status: string)=>{
     return {type: 'SET-USER-STATUS', status: status}as const
 }
+export const savePhotoSuccess =(photos: any)=>{
+    return {type: 'SET-PHOTO-SUCCESS', photos}as const
+}
 export const getUserProfile =(userId: number)=> async (dispatch: Dispatch) =>{
     const res = await usersAPI.getProfile(userId)
             dispatch(setUserProfile(res.data))
@@ -66,5 +72,11 @@ export const updateStatus =(status: string)=> async (dispatch: Dispatch) =>{
     const res = await profileAPI.updateStatus(status)
             if (res.data.resultCode === 0){
                 dispatch(setUserStatus(res.data))
+            }
+}
+export const savePhoto =(file: any)=> async (dispatch: Dispatch) =>{
+    const res = await profileAPI.savePhoto(file)
+            if (res.data.resultCode === 0){
+                dispatch(savePhotoSuccess(res.data.data.photos))
             }
 }
