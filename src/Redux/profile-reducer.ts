@@ -80,3 +80,11 @@ export const savePhoto =(file: any)=> async (dispatch: Dispatch) =>{
                 dispatch(savePhotoSuccess(res.data.data.photos))
             }
 }
+export const saveProfile =(profile: any)=> async (dispatch: Dispatch, getState: any) =>{
+    const userId = getState().authReducer.userId
+    const res = await profileAPI.saveProfile(profile)
+            if (res.data.resultCode === 0){
+                // @ts-ignore
+                dispatch(getUserProfile(userId))
+            }
+}
