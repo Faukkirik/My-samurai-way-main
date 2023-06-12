@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
+import {message} from "antd";
 
 export type AddPostActionType = ReturnType<typeof AddPostAC>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
@@ -86,5 +88,8 @@ export const saveProfile =(profile: any)=> async (dispatch: Dispatch, getState: 
             if (res.data.resultCode === 0){
                 // @ts-ignore
                 dispatch(getUserProfile(userId))
+            } else {
+                dispatch(stopSubmit("edit-profile",{_error: res.data.messages[0]}))
+                return Promise.reject(res.data.messages[0])
             }
 }

@@ -7,7 +7,7 @@ import ProfileDataForm from "./ProfileDataForm";
 
 
 export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: any) => {
-    const [editMode, setEditMode]=useState(false)
+    const [editMode, setEditMode] = useState(false)
 
     if (!profile) {
         return <Preloader/>
@@ -17,9 +17,11 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
             savePhoto(e.target.files[0])
         }
     }
-    const onSubmit =(formData: any)=>{
-        saveProfile(formData)
-        setEditMode(false)
+    const onSubmit =  (formData: any) => {
+         saveProfile(formData).then(()=>{
+             setEditMode(false)
+         })
+
     }
     return (
         <div>
@@ -27,8 +29,10 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
                 <img className={s.photo} src={profile.photos.large || photosUser} alt={'hey'}/>
                 {isOwner && <input type="file" onChange={mainPhotoSelected}/>}
                 {editMode
-                    ? <ProfileDataForm initialValues={profile}  onSubmit={onSubmit}/>
-                    : <ProfileData goToEditMode={()=>{setEditMode(true)}} profile={profile} isOwner={isOwner}/>}
+                    ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                    : <ProfileData goToEditMode={() => {
+                        setEditMode(true)
+                    }} profile={profile} isOwner={isOwner}/>}
 
                 {/*<div>{profile.fullName}</div>
                 <div>{profile.aboutMe}</div>
@@ -39,7 +43,7 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
         </div>
     )
 }
-export const ProfileData =({profile, isOwner, goToEditMode}: any)=>{
+export const ProfileData = ({profile, isOwner, goToEditMode}: any) => {
 
     return (
         <div>
@@ -60,7 +64,7 @@ export const ProfileData =({profile, isOwner, goToEditMode}: any)=>{
                 <b>About me:</b> {profile.aboutMe}
             </div>
             <div>
-                <b>Contacts:</b> {Object.keys(profile.contacts).map(key =>{
+                <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
                 return <Contact key={key}
                                 contactTitle={key}
                                 contactValue={profile.contacts[key]}
@@ -71,7 +75,7 @@ export const ProfileData =({profile, isOwner, goToEditMode}: any)=>{
     )
 }
 
-export const Contact =({contactTitle, contactValue}: any)=>{
+export const Contact = ({contactTitle, contactValue}: any) => {
     return (
         <div className={s.contact}>
             <b>{contactTitle}: </b>{contactValue}

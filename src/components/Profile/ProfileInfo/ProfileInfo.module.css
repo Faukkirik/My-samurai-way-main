@@ -8,3 +8,6 @@
 .contact{
     padding-left: 10px;
 }
+.formSummaryError{
+    color: red;
+}
