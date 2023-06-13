@@ -17,7 +17,7 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
             savePhoto(e.target.files[0])
         }
     }
-    const onSubmit =  (formData: any) => {
+    const onSubmit =  (formData: any) =>{
          saveProfile(formData).then(()=>{
              setEditMode(false)
          })
@@ -29,7 +29,7 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
                 <img className={s.photo} src={profile.photos.large || photosUser} alt={'hey'}/>
                 {isOwner && <input type="file" onChange={mainPhotoSelected}/>}
                 {editMode
-                    ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                    ? <ProfileDataForm initialValues={profile}  onSubmit={onSubmit}/>
                     : <ProfileData goToEditMode={() => {
                         setEditMode(true)
                     }} profile={profile} isOwner={isOwner}/>}
