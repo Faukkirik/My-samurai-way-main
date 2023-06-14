@@ -8,7 +8,8 @@ export type setInitializedActionType = {
 export type ActionType = setInitializedActionType
 
 const authPage = {
-    initialized: false
+    initialized: false,
+    globalError: null
 }
 export type authPageType = {
     initialized: boolean
